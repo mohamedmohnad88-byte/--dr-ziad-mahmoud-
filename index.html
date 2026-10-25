@@ -1,0 +1,82 @@
+<!DOCTYPE html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#1f5130"><title>الأحياء</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#fbf7ea;color:#25361f;font-family:Georgia,"Times New Roman","Traditional Arabic",serif}
+.hd{background:#1f5130;color:#f1f6d9;padding:26px 18px 54px;position:relative;overflow:hidden}
+.hd:after{content:"🌿🍃🌱🍀🌿🍃🌱";position:absolute;bottom:6px;left:0;right:0;font-size:26px;letter-spacing:10px;opacity:.35;text-align:center}
+.hd h1{margin:0;font-size:30px}.hd p{margin:6px 0 0;opacity:.85}
+.tb{display:flex;margin:-24px 14px 0;background:#fff;border-radius:6px;box-shadow:0 6px 18px #1f513033;position:relative;z-index:2}
+.tb a{flex:1;text-align:center;padding:15px 4px;font-weight:700;color:#5b7a52;cursor:pointer;border-bottom:4px solid transparent}.tb a.active{color:#1f5130;border-color:#8bc34a;background:#f4fae4}
+main{padding:22px 16px;max-width:760px;margin:auto}.view{display:none}.view.on{display:block;animation:in .4s ease both}@keyframes in{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:none}}
+.paper{background:#fffef6;background-image:repeating-linear-gradient(transparent 0 33px,#cfe3b8 33px 34px);border:1px solid #d9e3c0;border-right:6px solid #8bc34a;border-radius:6px;padding:20px 18px;line-height:34px;font-size:19px;box-shadow:3px 4px 0 #e5ecc8}
+.kv{list-style:none;margin:18px 0 0;padding:0}.kv li{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:6px;border-right:5px solid #8bc34a;padding:14px 16px;margin-bottom:10px;box-shadow:0 2px 6px #1f51301a}.kv b{font-size:22px;color:#1f5130}
+h2{color:#1f5130;border-bottom:2px dotted #8bc34a;padding-bottom:6px}
+.hm{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.cell{background:#8bc34a;color:#173b1f;border-radius:6px;padding:16px 6px;text-align:center;font-weight:700}.cell small{display:block;font-weight:400;font-size:12px}
+.tl{position:relative;margin-right:14px;padding-right:22px;border-right:3px solid #8bc34a}
+.it{position:relative;background:#fff;border-radius:6px;padding:14px;margin-bottom:16px;box-shadow:0 3px 8px #1f51301a}.it:before{content:"";position:absolute;right:-31px;top:20px;width:15px;height:15px;border-radius:50%;background:#fbf7ea;border:4px solid #1f5130}
+.it h3{margin:0 0 2px;font-size:18px}.it small{color:#6b8461}.bar{height:12px;background:#e6efd2;border-radius:10px;margin-top:10px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(270deg,#1f5130,#8bc34a);border-radius:10px;width:0;transition:width 1s ease}
+.sc{float:left;font-size:20px;font-weight:700;color:#1f5130;direction:ltr;unicode-bidi:isolate}.kv b{direction:ltr;unicode-bidi:isolate}
+footer{text-align:center;color:#8a9a7c;font-size:12px;padding:22px}
+</style></head><body>
+<div class="hd"><h1>🧬 الأحياء</h1><p>أ/ زياد محمود · مجموعة الخانكة · كل خميس 4:00</p><p style="font-size:14px">الطالب: مهند محمد عنتر</p></div>
+<div class="tb"><a data-tab="home">🌱 الرئيسية</a><a data-tab="att">🍃 الحضور</a><a data-tab="exams" class="active">🔬 الامتحانات</a></div>
+<main>
+<section class="view" id="v-home"><div class="paper">الحياة علم جميل، وكل حصة بتفهّمك سر جديد في الجسم 🌿<br>كمّل يا مهند، فهمك بيكبر زي النبتة 🌱</div><ul class="kv" id="kv"></ul></section>
+<section class="view" id="v-att"><h2>🍃 خريطة الحضور</h2><div class="hm" id="hm"></div></section>
+<section class="view on" id="v-exams"><h2>🔬 خط الامتحانات</h2><div class="tl" id="tl"></div></section>
+</main><footer>🌿 صفحة معاينة شخصية 🌿</footer>
+<script>var CFG={
+ "sessions": [
+  "2026-09-17",
+  "2026-09-24",
+  "2026-10-01",
+  "2026-10-08",
+  "2026-10-15",
+  "2026-10-22"
+ ],
+ "exams": [
+  {
+   "d": "2026-10-22",
+   "n": "كويز",
+   "g": 14,
+   "m": 15
+  },
+  {
+   "d": "2026-10-15",
+   "n": "كويز",
+   "g": 12,
+   "m": 15
+  },
+  {
+   "d": "2026-10-08",
+   "n": "كويز",
+   "g": 13,
+   "m": 15
+  },
+  {
+   "d": "2026-10-01",
+   "n": "كويز",
+   "g": 11.5,
+   "m": 15
+  },
+  {
+   "d": "2026-09-17",
+   "n": "امتحان شامل",
+   "g": 24,
+   "m": 30
+  }
+ ]
+};function $(i){return document.getElementById(i);}
+function pc(e){return Math.round(e.g/e.m*100);}
+function tabs(on){var t=document.querySelectorAll("[data-tab]"),v=document.querySelectorAll(".view");
+ function show(n){if(!$("v-"+n)){n="exams";}for(var i=0;i<v.length;i++){v[i].classList.toggle("on",v[i].id==="v-"+n);}for(var j=0;j<t.length;j++){t[j].classList.toggle("active",t[j].getAttribute("data-tab")===n);}window.scrollTo(0,0);}
+ for(var k=0;k<t.length;k++){t[k].addEventListener("click",function(){var n=this.getAttribute("data-tab");try{history.replaceState(null,"","#"+n);}catch(e){}show(n);});}
+ show((location.hash||"").replace("#","")||on);}
+var D=["الأحد","الاثنين","الثلاثاء","الأربعاء","الخميس","الجمعة","السبت"];
+var ex=CFG.exams.slice().sort(function(a,b){return b.d.localeCompare(a.d);});
+$("tl").innerHTML=ex.map(function(e){return '<div class="it"><span class="sc">'+e.g+' / '+e.m+'</span><h3>'+e.n+'</h3><small>'+e.d+' · '+pc(e)+'%</small><div class="bar"><i data-w="'+pc(e)+'"></i></div></div>';}).join("");
+setTimeout(function(){[].forEach.call(document.querySelectorAll(".bar i"),function(i){i.style.width=i.getAttribute("data-w")+"%";});},150);
+$("hm").innerHTML=CFG.sessions.slice().reverse().map(function(s){return '<div class="cell">'+s.slice(5)+'<small>'+D[new Date(s+"T12:00:00").getDay()]+' ✓</small></div>';}).join("");
+var sg=0,sm=0;CFG.exams.forEach(function(e){sg+=e.g;sm+=e.m;});var sh=CFG.exams[CFG.exams.length-1];
+function k(l,v){return '<li><span>'+l+'</span><b>'+v+'</b></li>';}
+$("kv").innerHTML=k("متوسط الدرجات",Math.round(sg/sm*100)+"%")+k("الحضور",CFG.sessions.length+" من "+CFG.sessions.length)+k("الامتحان الشامل",sh.g+" / "+sh.m)+k("آخر كويز",ex[0].g+" / "+ex[0].m);
+tabs("exams");</script></body></html>
